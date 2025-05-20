@@ -1,14 +1,17 @@
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const { open } = require('sqlite')
 const sqlite3 = require('sqlite3')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const app = express()
+app.use(cors())
 app.use(express.json())
 const dbPath = path.join(__dirname, 'auth.db')
 
 let db = null
+const PORT = process.env.PORT || 3000
 
 const initialDbAndServer = async () => {
   try {
@@ -16,8 +19,8 @@ const initialDbAndServer = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     })
-    app.listen(3000, () => {
-      console.log('Server is running at localhost:3000')
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server started on ${PORT}`)
     })
   } catch (e) {
     console.log(`DB Error: ${e.message}`)
