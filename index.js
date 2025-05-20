@@ -25,6 +25,9 @@ const initialDbAndServer = async () => {
   }
 }
 initialDbAndServer()
+app.get('/',async (req,res)=>{
+  res.send("Hi")
+})
 app.post('/login', async (req, res) => {
   const { username, password } = req.body
   const selectUserQuery = `SELECT * FROM User WHERE Username='${username}'`
